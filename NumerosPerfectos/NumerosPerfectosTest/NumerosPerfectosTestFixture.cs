@@ -13,34 +13,40 @@ namespace NumerosPerfectosTest
     public class NumerosPerfectosTestFixture
     {
         AutoMoqer _automoqer;
-        EvaluadorNumerosPerfectos _evaluador;
-        Mock<ISumador> _sumadorMoq;
+        CalificadorNumeros _calificadorNros;
         Mock<IDivisorProvider> _divisorMoq;
 
         [TestInitialize]
         public void Setup()
         {
             _automoqer = new AutoMoqer();
-            _evaluador = _automoqer.Resolve<EvaluadorNumerosPerfectos>();
+            _calificadorNros = _automoqer.Resolve<CalificadorNumeros>();
             _divisorMoq = _automoqer.GetMock<IDivisorProvider>();
-            _sumadorMoq = _automoqer.GetMock<ISumador>();
         }
 
 
         [TestMethod]
         public void DebeRetornarQueUnoNoEsPerfecto()
-        {         
-            var esPerfecto = _evaluador.EsPerfecto(1);
+        {
+            var num = 8;
 
+            _divisorMoq.Setup(d => d.ObtenerDivisores(num)).Returns(new List<int> {1});
+
+            var esPerfecto = _calificadorNros.EsPerfecto(num);
+            
             Assert.IsFalse(esPerfecto);
         }
 
         [TestMethod]
         public void DebeRetornarQueDosNoEsPerfecto()
         {
-            var esPerfecto = _evaluador.EsPerfecto(2);
+            var num = 8;
 
-            Assert.IsFalse(esPerfecto);
+            _divisorMoq.Setup(d => d.ObtenerDivisores(num)).Returns(new List<int> { 1,2,5 });
+
+            var esPerfecto = _calificadorNros.EsPerfecto(num);
+
+            Assert.IsTrue(esPerfecto);
         }
 
         [TestMethod]
@@ -52,20 +58,15 @@ namespace NumerosPerfectosTest
             _divisorMoq.Setup(d => d.ObtenerDivisores(It.IsAny<int>()))
                 .Returns(sumandos);
 
-            _sumadorMoq.Setup(s => s.Sumar(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new Sumador { });
-
-            _sumadorMoq.Setup(s => s.Suma).Returns(3);
-
             // ACT
-            var esPerfecto = _evaluador.EsPerfecto(3);
+            var esPerfecto = _calificadorNros.EsPerfecto(3);
 
             // ASSERT
             Assert.IsTrue(esPerfecto);
         }
 
         [TestMethod]
-        public void ParaVerificarSiUnNroEsPerfectoTieneQueSumarTodosSusDivisoresSiElNoEstaEntreEllos()
+        public void ParaVerificarSiUnNroEsPerfectoTieneQueObtenerSusDivisores()
         {
             // ARRANGE
             var sumandos = new List<int> { 1, 2, 3, 4 };
@@ -73,36 +74,13 @@ namespace NumerosPerfectosTest
             _divisorMoq.Setup(d => d.ObtenerDivisores(It.IsAny<int>()))
                 .Returns(sumandos);
             
-            _sumadorMoq.Setup(s => s.Sumar(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new Sumador());
-
             // ACT
-            var esPerfecto = _evaluador.EsPerfecto(6);
+            var esPerfecto = _calificadorNros.EsPerfecto(6);
 
             // ASSERT
-            _divisorMoq.Verify(d => d.ObtenerDivisores(It.IsAny<int>()), Times.Once());
-            _sumadorMoq.Verify(s => s.Sumar(It.IsAny<int>()), Times.Exactly(sumandos.Count));            
+            _divisorMoq.Verify(d => d.ObtenerDivisores(It.IsAny<int>()), Times.Once());        
         }
 
-        [TestMethod]
-        public void ParaVerificarSiUnNroEsPerfectoTieneQueSumarSusDivisoresMenosElSiElEstaEntreEllos()
-        {
-            // ARRANGE
-            var sumandos = new List<int> { 1, 2, 3, 4 };
-
-            _divisorMoq.Setup(d => d.ObtenerDivisores(It.IsAny<int>()))
-                .Returns(sumandos);
-
-            _sumadorMoq.Setup(s => s.Sumar(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new Sumador());
-
-            // ACT
-            var esPerfecto = _evaluador.EsPerfecto(1);
-
-            // ASSERT
-            _divisorMoq.Verify(d => d.ObtenerDivisores(It.IsAny<int>()), Times.Once());
-            _sumadorMoq.Verify(s => s.Sumar(It.IsAny<int>()), Times.Exactly(sumandos.Count - 1));
-        }
     }
 
     [TestClass]

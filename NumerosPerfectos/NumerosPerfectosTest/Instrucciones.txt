@@ -1,0 +1,11 @@
+﻿h1 - Dado un número, saber si es un número perfecto o no. 
+Es perfecto, si la suma de sus divisores ( excluido el mismo ) es igual a él mismo. Por ejemplo:
+
+6 tiene como divisores: 1 2 3 (y 6). Si los sumamos 1 + 2 + 3 == 6. 6 Es perfecto
+
+h2 – Dada una serie de números, identificar los perfectos { 1, 6, 78, 344 } –> { 6 }
+
+h3 – Dado un número, además de si es perfecto, queremos saber si es abundante ( suma de divisores > num ), 
+deficiente ( suma de divisores < num ) o primo ( divisible entre sí mismo y la unidad )
+
+h4 – Dada una serie de números, identificar los perfectos, abundantes, deficientes y primos.

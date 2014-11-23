@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NumerosPerfectos;
 using NumerosPerfectos.Abstracciones;
@@ -28,7 +27,7 @@ namespace NumerosPerfectosTest
         [TestMethod]
         public void DebeRetornarQueUnoNoEsPerfecto()
         {
-            var num = 8;
+            const int num = 8;
 
             _divisorMoq.Setup(d => d.ObtenerDivisores(num)).Returns(new List<int> {1});
 
@@ -40,7 +39,7 @@ namespace NumerosPerfectosTest
         [TestMethod]
         public void DebeRetornarQueDosNoEsPerfecto()
         {
-            var num = 8;
+            const int num = 8;
 
             _divisorMoq.Setup(d => d.ObtenerDivisores(num)).Returns(new List<int> { 1,2,5 });
 
@@ -75,7 +74,7 @@ namespace NumerosPerfectosTest
                 .Returns(sumandos);
             
             // ACT
-            var esPerfecto = _calificadorNros.EsPerfecto(6);
+            _calificadorNros.EsPerfecto(6);
 
             // ASSERT
             _divisorMoq.Verify(d => d.ObtenerDivisores(It.IsAny<int>()), Times.Once());        
@@ -124,7 +123,7 @@ namespace NumerosPerfectosTest
         [TestMethod]
         public void UnNumeroSeTieneComoDivisorASiMismo()
         {
-            var max = 20;
+            const int max = 20;
             for (int i = 1; i < max; i++)
             {
                  Assert.IsTrue( new DivisorProvider().ObtenerDivisores(i).Contains(i));

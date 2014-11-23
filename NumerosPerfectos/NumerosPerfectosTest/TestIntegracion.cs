@@ -2,11 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NumerosPerfectos;
 using NumerosPerfectos.Abstracciones;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NumerosPerfectosTest
 {
@@ -15,7 +12,6 @@ namespace NumerosPerfectosTest
     {
         AutoMoqer _automoqer;
         CalificadorNumeros _calificadorNros;
-        ISumador _sumador;
         IDivisorProvider _divisor;
 
         [TestInitialize]
@@ -23,8 +19,7 @@ namespace NumerosPerfectosTest
         {
             _automoqer = new AutoMoqer();
             _divisor = _automoqer.Resolve<DivisorProvider>();
-            _sumador = _automoqer.Resolve<Sumador>();
-            _calificadorNros = new CalificadorNumeros(_sumador, _divisor);            
+            _calificadorNros = new CalificadorNumeros(_divisor);            
         }
 
         [TestMethod]
@@ -73,7 +68,7 @@ namespace NumerosPerfectosTest
 
         [TestMethod]
         [TestCategory("Integracion")]
-        public void EntreEl1yEl496SoloHay3NrosPerfectos()
+        public void EntreEl1YEl496SoloHay3NrosPerfectos()
         {
             var nrosPerfectos = new List<int>();
             for (int i = 1; i <= 496; i++)
@@ -129,7 +124,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero12ComoAbundante()
         {
-            var numero = 12;
+            const int numero = 12;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -140,7 +135,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero9ComoNoAbundante()
         {
-            var numero = 9;
+            const int numero = 9;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -151,7 +146,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero9ComoDeficiente()
         {
-            var numero = 9;
+            const int numero = 9;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -162,7 +157,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero12ComoNoDeficiente()
         {
-            var numero = 12;
+            const int numero = 12;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -173,7 +168,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero1ComoPrimo()
         {
-            var numero = 1;
+            const int numero = 1;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -184,7 +179,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero3ComoPrimo()
         {
-            var numero = 3;
+            const int numero = 3;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -195,7 +190,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero4ComoNoPrimo()
         {
-            var numero = 4;
+            const int numero = 4;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
@@ -206,7 +201,7 @@ namespace NumerosPerfectosTest
         [TestCategory("Integracion")]
         public void QuieroClasificarElNumero0ComoNoPrimo()
         {
-            var numero = 0;
+            const int numero = 0;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 

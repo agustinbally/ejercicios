@@ -1,20 +1,15 @@
 ﻿using NumerosPerfectos.Abstracciones;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NumerosPerfectos
 {
     public class CalificadorNumeros
     {
-        ISumador _sumador;
-        IDivisorProvider _divisorProvider;
+        readonly IDivisorProvider _divisorProvider;
 
-        public CalificadorNumeros(ISumador sumador, IDivisorProvider divisorProvider)
+        public CalificadorNumeros(IDivisorProvider divisorProvider)
         {
-            _sumador = sumador;
             _divisorProvider = divisorProvider;
         }
 
@@ -44,7 +39,7 @@ namespace NumerosPerfectos
         {
             var divisores = _divisorProvider.ObtenerDivisores(numero);
 
-            return numero == 1 ? true : divisores.Count == 2;
+            return numero == 1 || divisores.Count == 2;
         }
 
         public ClasificacionNumero ClasificarNumero(int numero)

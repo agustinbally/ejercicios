@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="ClasificacionNumero.cs" />
     <Compile Include="DivisorProvider.cs" />
-    <Compile Include="CalificadorNumerosPerfectos.cs" />
+    <Compile Include="CalificadorNumeros.cs" />
     <Compile Include="Abstracciones\IDivisorProvider.cs" />
     <Compile Include="Abstracciones\ISumador.cs" />
     <Compile Include="Sumador.cs" />

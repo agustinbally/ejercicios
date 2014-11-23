@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstracciones\ICalificadorNumeros.cs" />
     <Compile Include="ClasificacionNumero.cs" />
     <Compile Include="DivisorProvider.cs" />
     <Compile Include="CalificadorNumeros.cs" />

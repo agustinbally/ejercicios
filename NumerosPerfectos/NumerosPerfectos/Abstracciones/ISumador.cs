@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NumerosPerfectos.Abstracciones
+﻿namespace NumerosPerfectos.Abstracciones
 {
     public interface ISumador
     {

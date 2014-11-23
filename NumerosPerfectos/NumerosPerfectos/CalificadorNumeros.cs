@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NumerosPerfectos
 {
-    public class CalificadorNumeros
+    public class CalificadorNumeros : ICalificadorNumeros
     {
         readonly IDivisorProvider _divisorProvider;
 
@@ -27,7 +27,7 @@ namespace NumerosPerfectos
             return nros.Where(EsPerfecto);
         }
 
-        private bool EsAbundante(int numero)
+        public bool EsAbundante(int numero)
         {
             var divisores = _divisorProvider.ObtenerDivisores(numero);
             divisores.Remove(numero);
@@ -35,7 +35,7 @@ namespace NumerosPerfectos
             return divisores.Sum() > numero;
         }
 
-        private bool EsPrimo(int numero)
+        public bool EsPrimo(int numero)
         {
             var divisores = _divisorProvider.ObtenerDivisores(numero);
 

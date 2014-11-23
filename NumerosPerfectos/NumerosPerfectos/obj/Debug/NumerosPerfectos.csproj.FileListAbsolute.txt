@@ -1,4 +1,0 @@
-C:\Users\Agus\Documents\GitHub\Ejercicios\NumerosPerfectos\NumerosPerfectos\bin\Debug\NumerosPerfectos.dll
-C:\Users\Agus\Documents\GitHub\Ejercicios\NumerosPerfectos\NumerosPerfectos\bin\Debug\NumerosPerfectos.pdb
-C:\Users\Agus\Documents\GitHub\Ejercicios\NumerosPerfectos\NumerosPerfectos\obj\Debug\NumerosPerfectos.dll
-C:\Users\Agus\Documents\GitHub\Ejercicios\NumerosPerfectos\NumerosPerfectos\obj\Debug\NumerosPerfectos.pdb

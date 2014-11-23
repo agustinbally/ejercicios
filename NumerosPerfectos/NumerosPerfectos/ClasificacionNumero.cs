@@ -7,5 +7,7 @@
         public bool EsDeficiente { get; set; }
 
         public bool EsPrimo { get; set; }
+
+        public object EsPerfecto { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace NumerosPerfectos
         {
             var divisores = _divisorProvider.ObtenerDivisores(numero);
 
-            return numero == 1 || divisores.Count == 2;
+            return divisores.Count == 2;
         }
 
         public ClasificacionNumero ClasificarNumero(int numero)
@@ -50,8 +50,18 @@ namespace NumerosPerfectos
             {
                 EsAbundante = esAbundante,
                 EsDeficiente = !esAbundante,
-                EsPrimo = EsPrimo(numero)
+                EsPrimo = EsPrimo(numero),
+                EsPerfecto = EsPerfecto(numero)
             };
+        }
+
+        public List<NumeroClasificado> ClasificarNumeros(List<int> numeros)
+        {
+            return numeros.ConvertAll(n => new NumeroClasificado
+            {
+                Numero = n,
+                Clasificacion = ClasificarNumero(n)
+            });            
         }
     }
 }

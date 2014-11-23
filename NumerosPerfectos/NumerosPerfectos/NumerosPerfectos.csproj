@@ -44,6 +44,7 @@
     <Compile Include="CalificadorNumeros.cs" />
     <Compile Include="Abstracciones\IDivisorProvider.cs" />
     <Compile Include="Abstracciones\ISumador.cs" />
+    <Compile Include="NumeroClasificado.cs" />
     <Compile Include="Sumador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using AutoMoq;
+﻿using System;
+using AutoMoq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NumerosPerfectos;
 using NumerosPerfectos.Abstracciones;
@@ -166,13 +167,13 @@ namespace NumerosPerfectosTest
 
         [TestMethod]
         [TestCategory("Integracion")]
-        public void QuieroClasificarElNumero1ComoPrimo()
+        public void QuieroClasificarElNumero1ComoNoPrimo()
         {
             const int numero = 1;
 
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
-            Assert.IsTrue(clasificacionNro.EsPrimo);
+            Assert.IsFalse(clasificacionNro.EsPrimo);
         }
 
         [TestMethod]
@@ -206,6 +207,81 @@ namespace NumerosPerfectosTest
             ClasificacionNumero clasificacionNro = _calificadorNros.ClasificarNumero(numero);
 
             Assert.IsFalse(clasificacionNro.EsPrimo);
+        }
+
+        [TestMethod]
+        [TestCategory("Integracion")]
+        public void QuieroPoderClasificarUnaListaDeNumeros()
+        {
+            var numero = new List<int>{ 1, 2, 3 };
+
+            var nrosClasificados = _calificadorNros.ClasificarNumeros(numero);
+
+            foreach (var nroClasificado in nrosClasificados)
+            {
+                Assert.IsNotNull(nroClasificado.Clasificacion);
+                Assert.IsNotNull(nroClasificado.Numero);
+                Assert.IsNotNull(nroClasificado.Clasificacion.EsPrimo);
+                Assert.IsNotNull(nroClasificado.Clasificacion.EsAbundante);
+                Assert.IsNotNull(nroClasificado.Clasificacion.EsDeficiente);
+                Assert.IsNotNull(nroClasificado.Clasificacion.EsPerfecto);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Integracion")]
+        public void QuieroPoderClasificarUnaListaConLosNros_1_2_3_6_9_12()
+        {
+            var numerosParaEvaluar = new List<int> { 1, 2, 3, 6, 9, 12 };
+            var nrosEvaluados = numerosParaEvaluar.Count;
+
+            var nrosClasificados = _calificadorNros.ClasificarNumeros(numerosParaEvaluar);
+
+            foreach (var nroClasificado in nrosClasificados)
+            {
+                switch (nroClasificado.Numero)
+                {
+                    case 1:
+                        EvaluarClasificacion(nroClasificado, false, false, false);
+                        nrosEvaluados--;
+                        break;
+                    case 2:
+                        EvaluarClasificacion(nroClasificado, false, true, false);
+                        nrosEvaluados--;
+                        break;
+                    case 3:
+                        EvaluarClasificacion(nroClasificado, false, true, false);
+                        nrosEvaluados--;
+                        break;
+                    case 6:
+                        EvaluarClasificacion(nroClasificado, false, false, true);
+                        nrosEvaluados--;
+                        break;
+                    case 9:
+                        EvaluarClasificacion(nroClasificado, false, false, false);
+                        nrosEvaluados--;
+                        break;
+                    case 12:
+                        EvaluarClasificacion(nroClasificado, true, false, false);
+                        nrosEvaluados--;
+                        break;
+                    default:
+                        throw new Exception("Numero no valido " + nroClasificado.Numero);
+                }                    
+            }
+
+            Assert.AreEqual(0, nrosEvaluados, string.Format("Quedaron sin evaluar {0} números", nrosEvaluados));
+        }
+
+        private void EvaluarClasificacion(NumeroClasificado numeroClasificado, 
+                                        bool esAbundante, 
+                                        bool esPrimo,
+                                        bool esPerfecto)
+        {
+            Assert.AreEqual(numeroClasificado.Clasificacion.EsPrimo, esPrimo, "Error Evaluando esPrimo para " + numeroClasificado.Numero);
+            Assert.AreEqual(numeroClasificado.Clasificacion.EsAbundante, esAbundante, "Error Evaluando esAbundante para " + numeroClasificado.Numero);
+            Assert.AreEqual(numeroClasificado.Clasificacion.EsDeficiente, !esAbundante, "Error Evaluando esDeficiente para " + numeroClasificado.Numero);
+            Assert.AreEqual(numeroClasificado.Clasificacion.EsPerfecto, esPerfecto, "Error Evaluando esPerfecto para " + numeroClasificado.Numero);
         }
     }
 }
